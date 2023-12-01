@@ -19,6 +19,7 @@ use MoonShine\Fields\Enum;
 use MoonShine\Fields\Image;
 use MoonShine\Fields\Number;
 use MoonShine\Fields\Relationships\BelongsTo;
+use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\Textarea;
 use MoonShine\Fields\TinyMce;
@@ -40,7 +41,7 @@ class SeasonResource extends ModelResource
                             Block::make([
                                 BelongsTo::make('Тайтл',
                                     'titles',
-                                    fn ($item) => "$item->id | $item->title")
+                                    fn ($item) => $item->title)
                                     ->searchable(),
                                 Text::make('Наименование', 'title'),
                                 Checkbox::make('Показывать на главной странице', 'show_in_main'),
@@ -62,8 +63,9 @@ class SeasonResource extends ModelResource
                                     ->removable(true)
                                     ->dir('/title_images')
                                     ->disk('public')
-                                    ->allowedExtensions(['jpg', 'gif', 'png']),
+                                    ->allowedExtensions(['jpg', 'gif', 'png', 'webp']),
                                 Text::make('Ссылка', 'url'),
+                                HasMany::make('Эпизоды', 'episodes')->showOnIndex(false),
                             ]),
                         ])->columnSpan(6),
                     ]),
@@ -120,5 +122,12 @@ class SeasonResource extends ModelResource
         $item->save();
 
         return $item;
+    }
+
+    public function filters(): array
+    {
+        return [
+            BelongsTo::make('Тайтл', 'titles', fn ($title) => $title->title),
+        ];
     }
 }

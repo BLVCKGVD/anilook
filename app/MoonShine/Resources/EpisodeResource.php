@@ -64,7 +64,7 @@ class EpisodeResource extends ModelResource
                                     ->removable(true)
                                     ->dir('/title_images')
                                     ->disk('public')
-                                    ->allowedExtensions(['jpg', 'gif', 'png']),
+                                    ->allowedExtensions(['jpg', 'gif', 'png', 'webp']),
                                 Text::make('Ссылка', 'url'),
                             ]),
                         ])->columnSpan(6),
@@ -122,5 +122,12 @@ class EpisodeResource extends ModelResource
         $item->save();
 
         return $item;
+    }
+
+    public function filters(): array
+    {
+        return [
+            BelongsTo::make('Тайтл', 'titles', 'title'),
+        ];
     }
 }

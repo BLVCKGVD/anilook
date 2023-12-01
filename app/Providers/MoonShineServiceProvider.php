@@ -30,10 +30,6 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
         return [
             MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
                 MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.role_title'),
-                    new TitleResource()
-                ),
-                MenuItem::make(
                     static fn () => __('moonshine::ui.resource.admins_title'),
                     new MoonShineUserResource()
                 ),
@@ -46,15 +42,15 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 MenuItem::make(
                     static fn () => __('titles.titles'),
                     new TitleResource()
-                ),
+                )->icon('heroicons.outline.tv'),
                 MenuItem::make(
                     static fn () => __('seasons.seasons'),
                     new SeasonResource()
-                ),
+                )->icon('heroicons.outline.folder'),
                 MenuItem::make(
                     static fn () => __('episodes.episodes'),
                     new EpisodeResource()
-                ),
+                )->icon('heroicons.outline.document'),
             ]),
         ];
     }

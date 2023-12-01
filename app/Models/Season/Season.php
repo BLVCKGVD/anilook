@@ -16,4 +16,8 @@ class Season extends Model
     protected $casts = [
         'image_url' => 'array',
     ];
+
+    protected $fillable = [
+        'title',
+    ];
 }

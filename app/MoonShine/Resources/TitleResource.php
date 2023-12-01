@@ -59,7 +59,7 @@ class TitleResource extends ModelResource
                                     ->removable(true)
                                     ->dir('/title_images')
                                     ->disk('public')
-                                    ->allowedExtensions(['jpg', 'gif', 'png']),
+                                    ->allowedExtensions(['jpg', 'gif', 'png', 'webp']),
                                 Text::make('Ссылка', 'url'),
                             ]),
                         ])->columnSpan(6),

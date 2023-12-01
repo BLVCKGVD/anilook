@@ -2,6 +2,7 @@
 
 namespace App\Models\Season\Repository;
 
+use App\Models\Episode\Episode;
 use App\Models\Season\Season;
 use App\Models\Title\Title;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,6 @@ trait SeasonRepositoryTrait
 
     public function episodes(): HasMany
     {
-        return $this->hasMany(Season::class, 'season_id', 'id');
+        return $this->hasMany(Episode::class, 'season_id', 'id');
     }
 }
