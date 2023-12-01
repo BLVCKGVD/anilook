@@ -1,11 +1,11 @@
 <?php
 
+use App\MoonShine\Layout\Layout;
 use MoonShine\Exceptions\MoonShineNotFoundException;
 use MoonShine\Forms\LoginForm;
 use MoonShine\Http\Middleware\Authenticate;
 use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
 use MoonShine\Models\MoonshineUser;
-use MoonShine\MoonShineLayout;
 use MoonShine\Pages\ProfilePage;
 
 return [
@@ -30,17 +30,17 @@ return [
     'use_notifications' => true,
     'use_theme_switcher' => true,
 
-    'layout' => MoonShineLayout::class,
+    'layout' => Layout::class,
 
     'disk' => 'public',
 
     'forms' => [
-        'login' => LoginForm::class
+        'login' => LoginForm::class,
     ],
 
     'pages' => [
         'dashboard' => App\MoonShine\Pages\Dashboard::class,
-        'profile' => ProfilePage::class
+        'profile' => ProfilePage::class,
     ],
 
     'model_resources' => [
@@ -72,7 +72,6 @@ return [
         ],
     ],
     'locales' => [
-        'en',
         'ru',
     ],
 
