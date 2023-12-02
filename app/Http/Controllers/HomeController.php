@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\Home;
 use App\Models\Title\Title;
 use Illuminate\View\View;
 
-class MainController extends Controller
+class HomeController extends Controller
 {
     public function index(): View
     {
-        $titles = Title::query()->with( 'seasons.episodes')->where('is_active', true)->get();
+        $home = new Home(request());
+        $home = $home->getHomePage();
 
         return view('main.index',
             [
-                'titles' => $titles,
+                'titles' => $home['titles'],
             ]
         );
     }

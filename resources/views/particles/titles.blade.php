@@ -1,3 +1,3 @@
 @foreach($titles as $title)
-    {{$title->$title}}
+    {{$title['title']}}
 @endforeach
