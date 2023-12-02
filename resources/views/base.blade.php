@@ -11,7 +11,10 @@
 <body>
 
 <main>
-    @yield('main')
+    @include('particles.topNavBar')
+    <section>
+        @yield('main')
+    </section>
 </main>
 <script></script>
 </body>

@@ -1,0 +1,30 @@
+section{
+    margin-top: 20px!important;
+    background-color: #333333;
+    padding: 0 15px;
+    border-radius: 1rem;
+}
+
+@media (min-width: 575.98px){
+    section {
+        margin: 0 calc(50% - 270px);
+    }
+}
+
+@media (min-width: 767.98px){
+    section {
+        margin: 0 calc(50% - 360px);
+    }
+}
+
+@media (min-width: 991.98px) {
+    section {
+        margin: 0 calc(50% - 480px);
+    }
+}
+
+@media (min-width: 1199.98px){
+    section {
+        margin: 0 calc(50% - 590px);
+    }
+}

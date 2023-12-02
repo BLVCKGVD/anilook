@@ -7,15 +7,16 @@ use Illuminate\Support\Str;
 
 enum CacheEnum {
     case TITLES;
+    case SINGLE_TITLE;
     case SEASONS;
     case EPISODES;
 
     public function ttl(): int
     {
         return match ($this) {
-            CacheEnum::TITLES,
             CacheEnum::SEASONS,
             CacheEnum::EPISODES => 60,
+            CacheEnum::TITLES => 1800,
             default => 3600,
         };
     }

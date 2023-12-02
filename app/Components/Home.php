@@ -18,11 +18,19 @@ class Home extends BaseComponent
 
     private function getTitles() {
         return Cache::remember(
-            'titles',
+            'main-page-titles',
             CacheEnum::TITLES->ttl(),
             function () {
-                return Title::query()->with('seasons.episodes')->get()->toArray();
+                return Title::query()->get()->map(function ($title) {
+                    return $this->getTitle($title->url);
+                });
             }
         );
+    }
+
+    private function getTitle($url) {
+        return Cache::remember('title'.'-'.$url, CacheEnum::SINGLE_TITLE->ttl(), function () use ($url) {
+            return Title::query()->with('seasons.episodes')->where('url', $url)->first();
+        });
     }
 }
