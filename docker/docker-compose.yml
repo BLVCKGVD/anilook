@@ -1,0 +1,88 @@
+version: "1.0"
+name: anilook
+services:
+
+  # PHP Service
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    container_name: anilook-app
+    volumes:
+      - ../:/var/www
+      - ./config/php/local.ini:/usr/local/etc/php/custom.d/custom.ini
+    command: php-fpm
+    working_dir: /var/www
+    networks:
+      app_network:
+        ipv4_address: 10.100.0.67
+    extra_hosts:
+      - "anilook.local:10.100.0.66"
+    ports:
+      - "9000:9000"
+    environment:
+      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"
+
+  # Nginx Service
+  webserver:
+    image: nginx:stable-alpine
+    container_name: anilook-webserver
+    restart: unless-stopped
+    volumes:
+      - ../:/var/www
+      - ./config/ssl/:/etc/nginx/ssl
+      - ./config/nginx/sites-enabled/:/etc/nginx/sites-enabled
+      - ./config/nginx/hosts:/etc/hosts
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs/nginx:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      app_network:
+        ipv4_address: 10.100.0.66
+    depends_on:
+      - app
+
+  # MySQL Service
+  db:
+    platform: linux/amd64
+    image: mysql:5.7.37
+    container_name: anilook-db
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./config/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./db_backup:/home/backup
+    ports:
+      - "3306:3306"
+    networks:
+      app_network:
+        ipv4_address: 10.100.0.68
+
+  redis:
+      image: redis:alpine
+      container_name: anilook-redis
+      restart: unless-stopped
+      volumes:
+          - ./data/redis:/data
+      ports:
+          - "6379:6379"
+      networks:
+          app_network:
+              ipv4_address: 10.100.0.65
+
+
+networks:
+  app_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.0.0/24
