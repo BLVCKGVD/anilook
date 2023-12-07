@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 abstract class BaseComponent
 {
-
     protected Request $request;
 
     public function __construct(Request $request)

@@ -5,7 +5,8 @@ namespace App\Enum;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
-enum CacheEnum {
+enum CacheEnum
+{
     case TITLES;
     case SINGLE_TITLE;
     case SEASONS;
@@ -23,7 +24,7 @@ enum CacheEnum {
 
     public function key($id = null): string
     {
-        return Str::slug(implode('-', [$this->name, $id,]));
+        return Str::slug(implode('-', [$this->name, $id]));
     }
 
     public function delete($id = null): void

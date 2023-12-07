@@ -16,21 +16,29 @@ class Home extends BaseComponent
         return $result;
     }
 
-    private function getTitles() {
+    private function getTitles()
+    {
         return Cache::remember(
-            'main-page-titles',
+            CacheEnum::TITLES->key('main-page-titles'),
             CacheEnum::TITLES->ttl(),
             function () {
-                return Title::query()->get()->map(function ($title) {
-                    return $this->getTitle($title->url);
-                });
+                return Title::query()
+                    ->where('show_in_main', true)
+                    ->orderBy('position', 'desc')
+                    ->get()->map(function ($title) {
+                        return $this->getTitle($title->url);
+                    });
             }
         );
     }
 
-    private function getTitle($url) {
-        return Cache::remember('title'.'-'.$url, CacheEnum::SINGLE_TITLE->ttl(), function () use ($url) {
-            return Title::query()->with('seasons.episodes')->where('url', $url)->first();
-        });
+    private function getTitle($url)
+    {
+        return Cache::remember(
+            CacheEnum::SINGLE_TITLE->key($url),
+            CacheEnum::SINGLE_TITLE->ttl(),
+            function () use ($url) {
+                return Title::query()->with('seasons.episodes')->where('url', $url)->first();
+            });
     }
 }

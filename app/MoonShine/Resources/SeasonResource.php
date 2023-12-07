@@ -107,7 +107,7 @@ class SeasonResource extends ModelResource
             $item->position = $item->id;
         }
         if (empty($item->url)) {
-            $item->url = Str::slug($item->title .'-'.$item->id);
+            $item->url = Str::slug($item->title.'-'.$item->id);
         }
         $item->save();
 
@@ -117,7 +117,7 @@ class SeasonResource extends ModelResource
     protected function afterUpdated(Model $item): Model
     {
         if (empty($item->url)) {
-            $item->url = Str::slug($item->title .'-'.$item->id);
+            $item->url = Str::slug($item->title.'-'.$item->id);
         }
         $item->save();
 

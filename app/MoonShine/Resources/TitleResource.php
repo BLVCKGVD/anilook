@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use App\Enum\CacheEnum;
 use App\Enum\Title\TitleStatusEnum;
 use App\Models\Title\Title;
 use Illuminate\Database\Eloquent\Model;
@@ -105,6 +106,7 @@ class TitleResource extends ModelResource
             $item->url = Str::slug($item->title.'-'.$item->id);
         }
         $item->save();
+        $this->deleteCache($item);
 
         return $item;
     }
@@ -112,10 +114,17 @@ class TitleResource extends ModelResource
     protected function afterUpdated(Model $item): Model
     {
         if (empty($item->url)) {
-            $item->url = Str::slug($item->title .'-'.$item->id);
+            $item->url = Str::slug($item->title.'-'.$item->id);
         }
         $item->save();
+        $this->deleteCache($item);
 
         return $item;
+    }
+
+    public function deleteCache($item = null): void
+    {
+        CacheEnum::TITLES->delete('main-page-titles');
+        CacheEnum::SINGLE_TITLE->delete($item->url);
     }
 }

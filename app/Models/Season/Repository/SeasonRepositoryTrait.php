@@ -3,7 +3,6 @@
 namespace App\Models\Season\Repository;
 
 use App\Models\Episode\Episode;
-use App\Models\Season\Season;
 use App\Models\Title\Title;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

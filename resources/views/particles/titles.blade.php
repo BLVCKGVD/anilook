@@ -1,5 +1,5 @@
 <div class="swiper-container">
-    <div class="swiper">
+    <div class="swiper swiper-hor">
         <div class="swiper-wrapper">
             @foreach($titles as $title)
                 @include('particles.titlesSlides', ['title' => $title])
