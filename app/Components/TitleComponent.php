@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Cache;
 
 class TitleComponent extends BaseComponent
 {
-
     public function getTitle($url)
     {
         return Cache::remember(
@@ -42,7 +41,7 @@ class TitleComponent extends BaseComponent
             CacheEnum::SINGLE_SEASON->key($url),
             CacheEnum::SINGLE_SEASON->ttl(),
             function () use ($url) {
-                return Season::query()->with(['titles','episodes'])->where('url', $url)->first();
+                return Season::query()->with(['titles', 'episodes'])->where('url', $url)->first();
             });
     }
 }

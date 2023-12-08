@@ -4,7 +4,6 @@ namespace App\Components;
 
 use App\Enum\CacheEnum;
 use App\Models\Season\Season;
-use App\Models\Title\Title as TitleModel;
 use Illuminate\Support\Facades\Cache;
 
 class SeasonComponent extends BaseComponent
@@ -15,7 +14,7 @@ class SeasonComponent extends BaseComponent
             CacheEnum::SINGLE_SEASON->key($url),
             CacheEnum::SINGLE_SEASON->ttl(),
             function () use ($url) {
-                return Season::query()->with(['titles','episodes'])->where('url', $url)->first();
+                return Season::query()->with(['titles', 'episodes'])->where('url', $url)->first();
             });
     }
 }

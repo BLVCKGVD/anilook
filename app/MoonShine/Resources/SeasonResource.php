@@ -112,6 +112,7 @@ class SeasonResource extends ModelResource
         }
         $item->save();
         $this->deleteCache($item);
+
         return $item;
     }
 
@@ -122,6 +123,7 @@ class SeasonResource extends ModelResource
         }
         $item->save();
         $this->deleteCache($item);
+
         return $item;
     }
 

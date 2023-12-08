@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\Home;
 use App\Components\TitleComponent;
 use Illuminate\View\View;
 
@@ -15,6 +14,7 @@ class TitleController extends Controller
         if (empty($title)) {
             abort(404);
         }
+
         return view('main.title',
             [
                 'title' => $title,

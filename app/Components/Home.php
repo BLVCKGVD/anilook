@@ -66,7 +66,7 @@ class Home extends BaseComponent
             CacheEnum::SINGLE_SEASON->key($url),
             CacheEnum::SINGLE_SEASON->ttl(),
             function () use ($url) {
-                return Season::query()->with(['titles','episodes'])->where('url', $url)->first();
+                return Season::query()->with(['titles', 'episodes'])->where('url', $url)->first();
             });
     }
 }

@@ -11,10 +11,11 @@ class HomeController extends Controller
     {
         $home = new Home(request());
         $home = $home->getHomePage();
+
         return view('main.index',
             [
                 'titles' => $home['titles'],
-                'seasons' => $home['seasons']
+                'seasons' => $home['seasons'],
             ]
         );
     }
