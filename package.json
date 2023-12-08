@@ -11,6 +11,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "rellax": "^1.12.1",
         "swiper": "^11.0.5"
     }
 }

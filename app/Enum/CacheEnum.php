@@ -10,14 +10,15 @@ enum CacheEnum
     case TITLES;
     case SINGLE_TITLE;
     case SEASONS;
+
+    case SINGLE_SEASON;
     case EPISODES;
 
     public function ttl(): int
     {
         return match ($this) {
-            CacheEnum::SEASONS,
             CacheEnum::EPISODES => 60,
-            CacheEnum::TITLES => 1800,
+            CacheEnum::TITLES, CacheEnum::SEASONS, => 1800,
             default => 3600,
         };
     }

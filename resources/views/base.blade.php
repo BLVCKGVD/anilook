@@ -9,12 +9,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-
+@include('particles.parallax')
 <main>
     @include('particles.topNavBar')
-    <section>
-        @yield('main')
-    </section>
+    <span class="row mt-5"></span>
+    @yield('main')
 </main>
 <script></script>
 </body>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use App\Enum\CacheEnum;
 use App\Enum\Season\SeasonStatusEnum;
 use App\Models\Season\Season;
 use Illuminate\Database\Eloquent\Model;
@@ -110,7 +111,7 @@ class SeasonResource extends ModelResource
             $item->url = Str::slug($item->title.'-'.$item->id);
         }
         $item->save();
-
+        $this->deleteCache($item);
         return $item;
     }
 
@@ -120,7 +121,7 @@ class SeasonResource extends ModelResource
             $item->url = Str::slug($item->title.'-'.$item->id);
         }
         $item->save();
-
+        $this->deleteCache($item);
         return $item;
     }
 
@@ -129,5 +130,11 @@ class SeasonResource extends ModelResource
         return [
             BelongsTo::make('Тайтл', 'titles', fn ($title) => $title->title),
         ];
+    }
+
+    public function deleteCache($item = null): void
+    {
+        CacheEnum::SEASONS->delete('main-page-seasons');
+        CacheEnum::SINGLE_SEASON->delete($item->url);
     }
 }

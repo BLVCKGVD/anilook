@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SeasonController;
+use App\Http\Controllers\TitleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/titles/{url}', [TitleController::class, 'show'])->name('title');
+Route::get('/seasons/{url}', [SeasonController::class, 'show'])->name('season');

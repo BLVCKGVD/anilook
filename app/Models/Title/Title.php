@@ -11,8 +11,6 @@ class Title extends Model
     use SoftDeletes;
     use TitleRepositoryTrait;
 
-    protected $table = 'titles';
-
     protected $casts = [
         'image_url' => 'array',
     ];

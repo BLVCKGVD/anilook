@@ -2,12 +2,31 @@
     font-family: 'Roboto';
     src: url('fonts/Roboto-Regular.ttf') format('truetype');
 }
+@font-face {
+    font-family: 'Roboto Bold';
+    src: url('fonts/Roboto-Bold.ttf') format('truetype');
+}
 body {
     font-family: Roboto;
     margin: 0;
     background-color: #121212;
     color: #ffffff;
 }
+a {
+    all: unset;
+}
+a:hover {
+    cursor: pointer;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+.font-bold {
+    font-family: "Roboto Bold";
+}
+
 .swiper {
     width: 80%;
     height: 100%;
@@ -44,5 +63,40 @@ body {
 }
 
 .title-swiper-slide__image {
-    object-fit: cover;
+    object-fit: contain;
 }
+.season-swiper-slide__image {
+    object-fit: contain!important;
+    height: 100%!important;
+}
+
+.swiper-seasons {
+    height: 300px;
+}
+
+.bottom-text {
+    position: absolute;
+    width: 102.4%;
+    bottom: 5px;
+}
+@media screen and (max-width: 980px) {
+    .bottom-text {
+        width: 103%;
+    }
+}
+.shadow-slider {
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+}
+
+.swiper-wrapper {
+    transition-timing-function: linear;
+}
+
+.swiper-wrapper-seasons {
+    transition-timing-function: linear!important;
+}
+
+.swiper-seasons {
+    width: 100%;
+}
+
